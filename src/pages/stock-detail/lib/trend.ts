@@ -6,7 +6,7 @@ export interface TrendInterpretation {
 	sentence: string;
 }
 
-export function interpretTrend(series: PricePoint[], periodLabel: string) {
+export function interpretTrend(series: PricePoint[], periodLabel: string): TrendInterpretation {
 	const first = series.at(0);
 	const last = series.at(-1);
 

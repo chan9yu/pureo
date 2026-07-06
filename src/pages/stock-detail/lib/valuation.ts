@@ -5,7 +5,7 @@ export interface ValuationInterpretation {
 	sentence: string;
 }
 
-export function interpretPer(per: number | null) {
+export function interpretPer(per: number | null): ValuationInterpretation {
 	if (per === null || !Number.isFinite(per) || per <= 0) {
 		return {
 			level: "unknown",
@@ -35,7 +35,7 @@ export function interpretPer(per: number | null) {
 	};
 }
 
-export function interpretPbr(pbr: number | null) {
+export function interpretPbr(pbr: number | null): ValuationInterpretation {
 	if (pbr === null || !Number.isFinite(pbr) || pbr <= 0) {
 		return {
 			level: "unknown",
