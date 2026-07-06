@@ -17,3 +17,8 @@ pre-commit:
     - name: type-check
       glob: "*.{ts,tsx,mts}"
       run: pnpm type:check
+
+prepare-commit-msg:
+  commands:
+    template:
+      run: node scripts/commit-msg.mjs {1}
