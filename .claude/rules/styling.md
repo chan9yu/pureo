@@ -1,0 +1,30 @@
+---
+description: Tailwind CSS 4 스타일링 규칙 — Canonical-first, arbitrary value 금지
+paths: ["src/**/*.css", "src/**/*.tsx", "app/**/*.tsx"]
+---
+
+# 스타일 컨벤션
+
+## Tailwind 클래스 우선순위 (Canonical First)
+
+**arbitrary value(`[..]`, `(--..)`) 사용 금지.** 표준 클래스 또는 `@theme` 토큰을 사용한다.
+
+허용 우선순위 (위에서 아래로 검토):
+
+1. **Tailwind 표준 클래스** — `max-w-xl`·`z-40`·`text-sm`·`rounded-md`·`bg-white` 등
+2. **`@theme` 토큰 자동 생성 클래스** — 반복되는 값은 `globals.css`의 `@theme`에
+   Semantic 변수로 추가하면 클래스가 자동 생성된다 (예: `--container-narrow: 32rem;` → `max-w-narrow`)
+3. **arbitrary value는 정말 일회성**일 때만. 같은 값이 2회+ 등장하면 토큰 추가가 올바른 선택 — PR 리뷰 거부 대상
+
+| ❌ 금지                 | ✅ 사용                        |
+| ----------------------- | ------------------------------ |
+| `bg-[#fff]`             | `bg-white`                     |
+| `z-[40]`                | `z-40`                         |
+| `rounded-[0.5rem]`      | `rounded-md`                   |
+| `text-[var(--color-x)]` | `@theme` 토큰 노출 후 `text-x` |
+| `max-w-[36rem]`         | `max-w-xl` 또는 컨테이너 토큰  |
+
+## 전역 CSS
+
+- 전역 스타일과 `@theme` 토큰은 `globals.css` 한 곳에서 관리 (FSD `app` 레이어 소유)
+- 폰트는 `next/font`로 로드
