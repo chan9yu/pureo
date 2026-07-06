@@ -98,13 +98,20 @@ src/
 - **금지**: `components/`·`hooks/`·`utils/`·`types/`·`services/` — 기술 역할명은 존재 목적을 숨긴다.
 - 파일 명명: 컴포넌트 PascalCase, 훅·유틸 camelCase, 슬라이스 디렉토리 kebab-case.
 
-## 6. 배럴(Public API) 정책
+## 6. 배럴(Public API) 정책 — FSD 공식
 
-- **pages 슬라이스만 `index.ts` 배럴 필수** — 필요한 것만 선별 named re-export.
-  `export * from` wildcard 금지, 배럴에 `"use client"` 금지, 배럴은 re-export만.
-- **app·shared는 배럴 없음 — 파일 단위 직접 import** (`@/shared/api/http`, `@/app/api-routes/search`).
-  파일 수가 적고 서버/클라이언트 성격이 섞여 있어 배럴이 오히려 위험.
-- 슬라이스 배럴에 서버 전용 export와 클라이언트 컴포넌트가 공존 + 클라이언트 소비자 등장 시
+Steiger(`pnpm lint:fsd`, pre-commit `fsd-structure`)가 강제한다.
+
+- **pages 슬라이스**: `index.ts` 배럴 필수 — 필요한 것만 선별 named re-export.
+- **shared**: 세그먼트 단위 배럴 (`shared/api/index.ts`, `shared/lib/index.ts`).
+  외부에서는 세그먼트 배럴로만 import — 내부 파일 직접 접근은 sidestep 위반.
+- **app**: 배럴 없음 — 최상위 레이어라 소비자가 없어 public API가 불필요.
+  루트 라우팅 파일(`src/` 밖)만 파일 단위로 접근한다 (`@/app/layouts/RootLayout`).
+- **서버 전용 모듈은 동형(isomorphic) 배럴에서 re-export 금지** — RSC 경계 보호.
+  자체 배럴 + 첫 줄 `import "server-only"` 포이즌 필. 예: `shared/api/market/`(API 키 사용)은
+  `shared/api/market/index.ts` 별도 배럴로 두고 `shared/api/index.ts`에서 재노출하지 않는다.
+- 공통: `export * from` wildcard 금지, 배럴에 `"use client"` 금지, 배럴은 re-export만.
+- 배럴에 서버 전용 export와 클라이언트 컴포넌트가 공존 + 클라이언트 소비자 등장 시
   → split barrel(`index.ts` 서버 / `client.ts` 클라이언트) 분리.
 
 ## 7. Import 경로 규칙
@@ -114,11 +121,12 @@ src/
 import { interpretPer } from "../lib/valuation";
 
 // ✅ 다른 슬라이스/레이어 — 절대 경로 (@/* → src/*)
-import { StockDetailPage } from "@/pages/stock-detail"; // 슬라이스는 배럴로
-import { fetchJson } from "@/shared/api/http"; // shared는 파일 직접
+import { StockDetailPage } from "@/pages/stock-detail"; // 슬라이스 배럴
+import { fetchJson } from "@/shared/api"; // shared 세그먼트 배럴
 
-// ❌ 슬라이스 내부 직접 접근 (public API 우회)
+// ❌ 배럴 우회 직접 접근 (public API sidestep)
 import { StockCard } from "@/pages/stock-detail/ui/StockCard";
+import { fetchJson } from "@/shared/api/http";
 
 // ❌ 하위 → 상위 (shared에서 pages import 등)
 ```

@@ -17,7 +17,7 @@ paths: ["src/**/*.ts", "src/**/*.tsx"]
 - Import 순서: external → internal (`@/*`) → relative (`./`, `../`)
 - 모듈 간 import: `@/*` 절대 경로 (예: `@/shared/api/http`)
 - 같은 슬라이스 내부: `./`, `../` 상대 경로
-- 배럴 파일(index.ts): pages 슬라이스만 배럴 필수, app·shared는 파일 단위 직접 import
+- 배럴 파일(index.ts): pages 슬라이스·shared 세그먼트에 배럴 필수(FSD 공식, Steiger 강제), app 레이어는 배럴 없음
   - **배럴은 re-export만 허용**: `export { X } from "./X"` / `export type { T } from "./T"` 형태만. 타입·상수·함수 직접 정의 금지
   - 배럴에 `"use client"` 금지 — 서버/클라이언트 혼재 + 클라이언트 소비자 등장 시 split barrel
 - 레이어 간 의존성은 단방향(app → pages → shared), 같은 레이어의 다른 슬라이스 import 금지
