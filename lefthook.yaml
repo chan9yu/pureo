@@ -1,0 +1,10 @@
+min_version: 2.0.0
+
+pre-commit:
+  parallel: true
+  commands:
+    prettier:
+      files: git diff --cached --name-only --diff-filter=d
+      glob: "*.{js,ts,jsx,tsx,mjs,json,yaml,yml,md,css}"
+      run: pnpm exec prettier --write {files}
+      stage_fixed: true
