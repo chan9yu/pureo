@@ -14,7 +14,7 @@
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./src/*"]
 		},
 
 		/* JavaScript Support */
