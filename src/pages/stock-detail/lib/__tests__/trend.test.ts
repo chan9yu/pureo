@@ -1,10 +1,8 @@
 import { describe, expect, it } from "vitest";
 
-import type { PricePoint } from "@/shared/market";
-
 import { interpretTrend } from "../trend";
 
-function series(...closes: number[]): PricePoint[] {
+function series(...closes: number[]) {
 	return closes.map((close, i) => ({ date: `2026-06-${String(i + 1).padStart(2, "0")}`, close }));
 }
 
