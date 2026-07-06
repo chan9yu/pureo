@@ -1,0 +1,32 @@
+{
+	"$schema": "https://json.schemastore.org/claude-code-settings.json",
+	"enableAllProjectMcpServers": true,
+	"hooks": {
+		"PostToolUse": [
+			{
+				"matcher": "Edit|Write",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/format-edited-file.sh",
+						"async": true,
+						"timeout": 30
+					}
+				]
+			}
+		]
+	},
+	"permissions": {
+		"allow": [
+			"mcp__context7",
+			"mcp__mdn",
+			"mcp__playwright",
+			"mcp__sequential-thinking",
+			"mcp__serena",
+			"mcp__shadcn",
+			"mcp__vercel"
+		],
+		"ask": [],
+		"deny": []
+	}
+}
