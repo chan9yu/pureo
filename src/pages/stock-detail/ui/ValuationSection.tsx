@@ -26,12 +26,12 @@ export function ValuationSection({ symbol }: ValuationSectionProps) {
 						<div>
 							<TermHint term="PER로 보면">{GLOSSARY.PER}</TermHint>
 							{per.level !== "unknown" && <Gauge level={per.level} />}
-							<p className="mt-2 text-sm text-gray-700">{per.sentence}</p>
+							<p className="text-t6 mt-2 text-grey-700">{per.sentence}</p>
 						</div>
 						<div>
 							<TermHint term="PBR로 보면">{GLOSSARY.PBR}</TermHint>
 							{pbr.level !== "unknown" && <Gauge level={pbr.level} />}
-							<p className="mt-2 text-sm text-gray-700">{pbr.sentence}</p>
+							<p className="text-t6 mt-2 text-grey-700">{pbr.sentence}</p>
 						</div>
 					</div>
 				);

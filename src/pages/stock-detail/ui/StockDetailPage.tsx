@@ -36,7 +36,7 @@ export async function StockDetailPage({ params }: StockDetailPageProps) {
 	]);
 
 	return (
-		<main className="mx-auto max-w-xl px-4 py-8">
+		<main className="animate-fade-up mx-auto w-full max-w-6xl flex-1 px-5 py-6 lg:px-8 lg:py-10">
 			<HydrationBoundary state={dehydrate(queryClient)}>
 				<StockCard symbol={symbol} />
 			</HydrationBoundary>

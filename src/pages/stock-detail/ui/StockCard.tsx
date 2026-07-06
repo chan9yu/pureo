@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 import { Disclaimer } from "./Disclaimer";
@@ -14,18 +15,34 @@ type StockCardProps = {
 
 export function StockCard({ symbol }: StockCardProps) {
 	return (
-		<div className="flex flex-col gap-4">
-			<div className="flex items-center justify-between">
-				<h1 className="text-xl font-bold">{symbol}</h1>
-				<Link href="/" className="text-sm text-gray-500 hover:underline">
-					← 다시 검색
+		<div className="flex flex-col gap-3">
+			<div className="mb-1 flex items-center justify-between">
+				<Link
+					href="/"
+					className="text-t6 -ml-2 inline-flex items-center gap-1 rounded-xl px-2 py-1.5 font-medium text-grey-600 transition hover:bg-grey-50 active:bg-grey-100"
+				>
+					<ArrowLeft className="size-4" aria-hidden />
+					다시 검색
 				</Link>
+				<h1 className="text-t4 font-bold tracking-tight tabular-nums">{symbol}</h1>
 			</div>
-			<ProfileSection symbol={symbol} />
-			<PriceSection symbol={symbol} />
-			<TrendSection symbol={symbol} />
-			<ValuationSection symbol={symbol} />
-			<Disclaimer />
+			<div className="grid gap-3 lg:grid-cols-3">
+				<div className="lg:col-start-3 lg:row-start-1">
+					<ProfileSection symbol={symbol} />
+				</div>
+				<div className="lg:col-span-2 lg:col-start-1 lg:row-start-1">
+					<PriceSection symbol={symbol} />
+				</div>
+				<div className="lg:col-span-2 lg:col-start-1 lg:row-start-2">
+					<TrendSection symbol={symbol} />
+				</div>
+				<div className="lg:col-start-3 lg:row-start-2">
+					<ValuationSection symbol={symbol} />
+				</div>
+			</div>
+			<div className="mt-3 px-1">
+				<Disclaimer />
+			</div>
 		</div>
 	);
 }

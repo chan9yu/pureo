@@ -18,13 +18,12 @@ export function PriceSection({ symbol }: PriceSectionProps) {
 				const rising = quote.change >= 0;
 				return (
 					<div>
-						<div className="flex items-baseline gap-3">
-							<span className="text-3xl font-bold">${quote.price.toLocaleString()}</span>
-							<span className={rising ? "text-red-600" : "text-blue-600"}>
-								{rising ? "▲" : "▼"} {Math.abs(quote.change).toFixed(2)} ({Math.abs(quote.changePercent).toFixed(2)}%)
-							</span>
-						</div>
-						<p className="mt-1 text-sm text-gray-600">
+						<p className="text-t1 font-bold tracking-tight tabular-nums">${quote.price.toLocaleString()}</p>
+						<p className={`text-t5 mt-1 font-semibold tabular-nums ${rising ? "text-rise" : "text-fall"}`}>
+							{rising ? "+" : "-"}
+							{Math.abs(quote.change).toFixed(2)} ({Math.abs(quote.changePercent).toFixed(2)}%)
+						</p>
+						<p className="text-t6 mt-2 text-grey-600">
 							어제보다 {Math.abs(quote.changePercent).toFixed(1)}% {rising ? "올랐어요" : "내렸어요"}.
 						</p>
 					</div>

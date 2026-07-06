@@ -1,5 +1,6 @@
 "use client";
 
+import { CircleHelp } from "lucide-react";
 import type { PropsWithChildren } from "react";
 import { useState } from "react";
 
@@ -16,14 +17,12 @@ export function TermHint({ term, children }: TermHintProps) {
 				type="button"
 				onClick={() => setOpen((o) => !o)}
 				aria-expanded={open}
-				className="inline-flex items-center gap-1 font-semibold"
+				className="text-t5 inline-flex items-center gap-1.5 font-bold transition active:opacity-70"
 			>
 				{term}
-				<span className="flex h-4 w-4 items-center justify-center rounded-full bg-gray-200 text-[10px] text-gray-600">
-					?
-				</span>
+				<CircleHelp className="size-4 text-grey-400" aria-hidden />
 			</button>
-			{open && <span className="mt-1 block rounded-lg bg-gray-50 p-2 text-sm text-gray-600">{children}</span>}
+			{open && <span className="text-t6 mt-2 block rounded-2xl bg-white p-4 text-grey-600">{children}</span>}
 		</span>
 	);
 }
