@@ -59,6 +59,7 @@ src/
 ├── app/                      ← FSD app 레이어 (세그먼트만)
 │   ├── layouts/              RootLayout + metadata
 │   ├── providers/            QueryProvider (전역 Provider 조립)
+│   ├── fonts/                폰트 바이너리 (next/font 빌드 입력 — URL 서빙 아님)
 │   ├── styles/               globals.css
 │   └── api-routes/           route handler 구현 + __tests__/
 ├── pages/
