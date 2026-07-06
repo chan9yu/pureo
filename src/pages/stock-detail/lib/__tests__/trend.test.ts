@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { PricePoint } from "@/shared/api";
+import type { PricePoint } from "@/shared/market";
 
 import { interpretTrend } from "../trend";
 

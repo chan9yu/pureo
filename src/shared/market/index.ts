@@ -6,4 +6,5 @@ export type {
 	StockMetrics,
 	StockQuote,
 	StockSearchResult
-} from "./market/types";
+} from "./types";
+export { usProvider } from "./us";

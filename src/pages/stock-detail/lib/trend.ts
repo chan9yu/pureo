@@ -1,4 +1,4 @@
-import type { PricePoint } from "@/shared/api";
+import type { PricePoint } from "@/shared/market";
 
 export interface TrendInterpretation {
 	direction: "up" | "down" | "flat" | "unknown";

@@ -1,4 +1,4 @@
-import type { CompanyProfile } from "@/shared/api";
+import type { CompanyProfile } from "@/shared/market";
 
 export function formatMarketCapUsd(usd: number) {
 	if (usd >= 1e12) return `약 ${(usd / 1e12).toFixed(1)}조 달러`;

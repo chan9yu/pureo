@@ -66,7 +66,8 @@ src/
 │   ├── home/                 검색 화면 — index.ts / ui/ / api/(검색 쿼리)
 │   └── stock-detail/         해석 카드 — index.ts / ui/ / api/(상세 쿼리) / lib/(해석 룰)
 └── shared/
-    ├── api/                  http(fetchJson·HttpError)·queryClient·market/(시세 provider)
+    ├── api/                  http(fetchJson·HttpError)·queryClient — 동형(isomorphic)
+    ├── market/               시세 provider + 도메인 타입 — 서버 전용 (server-only 가드)
     ├── lib/                  useDebouncedValue 등 범용 훅·유틸
     └── test/                 fixtures, MSW 헬퍼
 ```
@@ -77,7 +78,7 @@ src/
 | ----------------------------------------- | --------------------------- | -------------------------------------------------------- |
 | 1곳 전용 UI·로직                          | 해당 페이지 슬라이스 내부   | Pages-First. 섹션·게이지·스파크라인은 stock-detail 전용  |
 | 해석 룰 (valuation·trend·glossary)        | `pages/stock-detail/lib/`   | 종목 도메인 지식 — shared에 도메인 누수 금지             |
-| 외부 API 전송 타입·시세 provider          | `shared/api/market/`        | 외부 응답 DTO·통신 계층은 shared/api                     |
+| 외부 API 전송 타입·시세 provider          | `shared/market/`            | 서버 전용 세그먼트 — 동형 코드(shared/api)와 경계 분리   |
 | fetchJson·HttpError                       | `shared/api/http.ts`        | 호출 규칙의 단일 수정 지점                               |
 | query factory (queryOptions)              | 사용하는 페이지의 `api/`    | fsd-tanstack-query — mutation·query는 사용처 가까이      |
 | QueryClient **팩토리** (`getQueryClient`) | `shared/api/queryClient.ts` | pages의 RSC prefetch가 사용 — pages→app 상향 import 금지 |
@@ -118,9 +119,10 @@ Steiger(`pnpm lint:fsd`, pre-commit `fsd-structure`)가 강제한다.
   외부에서는 세그먼트 배럴로만 import — 내부 파일 직접 접근은 sidestep 위반.
 - **app**: 배럴 없음 — 최상위 레이어라 소비자가 없어 public API가 불필요.
   루트 라우팅 파일(`src/` 밖)만 파일 단위로 접근한다 (`@/app/layouts/RootLayout`).
-- **서버 전용 모듈은 동형(isomorphic) 배럴에서 re-export 금지** — RSC 경계 보호.
-  자체 배럴 + 첫 줄 `import "server-only"` 포이즌 필. 예: `shared/api/market/`(API 키 사용)은
-  `shared/api/market/index.ts` 별도 배럴로 두고 `shared/api/index.ts`에서 재노출하지 않는다.
+- **서버 전용 코드는 자체 세그먼트로 분리** — RSC 경계 보호. 동형 세그먼트 배럴에
+  서버 전용 모듈을 섞지 않는다 (steiger sidestep 룰상 세그먼트 내부 하위 배럴은 불가).
+  예: `shared/market/`(API 키 사용)은 첫 줄 `import "server-only"` 포이즌 필 + 자체 배럴.
+  타입만 필요한 소비자는 `import type` — 값 import는 클라이언트 번들에서 빌드 에러로 차단된다.
 - 공통: `export * from` wildcard 금지, 배럴에 `"use client"` 금지, 배럴은 re-export만.
 - 배럴에 서버 전용 export와 클라이언트 컴포넌트가 공존 + 클라이언트 소비자 등장 시
   → split barrel(`index.ts` 서버 / `client.ts` 클라이언트) 분리.

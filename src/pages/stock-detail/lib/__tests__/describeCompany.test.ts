@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import type { CompanyProfile } from "@/shared/api";
+import type { CompanyProfile } from "@/shared/market";
 
 import { describeCompany, formatMarketCapUsd } from "../describeCompany";
 
