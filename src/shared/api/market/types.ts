@@ -9,8 +9,10 @@ export interface StockSearchResult {
 export interface StockQuote {
 	symbol: string;
 	price: number;
-	change: number; // 전일 대비
-	changePercent: number; // 전일 대비 %
+	/** 전일 대비 */
+	change: number;
+	/** 전일 대비 % */
+	changePercent: number;
 	currency: "USD" | "KRW";
 }
 
@@ -18,7 +20,8 @@ export interface CompanyProfile {
 	symbol: string;
 	name: string;
 	industry: string | null;
-	marketCapUsd: number | null; // 달러 단위 (Finnhub 원본은 백만 달러 → 변환)
+	/** 달러 단위 (Finnhub 원본은 백만 달러 → 변환) */
+	marketCapUsd: number | null;
 	exchange: string | null;
 	logoUrl: string | null;
 }
@@ -30,7 +33,8 @@ export interface StockMetrics {
 }
 
 export interface PricePoint {
-	date: string; // 'YYYY-MM-DD', 과거 → 최신 순
+	/** 'YYYY-MM-DD', 과거 → 최신 순 */
+	date: string;
 	close: number;
 }
 
