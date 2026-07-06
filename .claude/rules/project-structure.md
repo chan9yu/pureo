@@ -54,7 +54,7 @@ paths: ["src/**", "app/**", "pages/**"]
 app/                          ← Next.js App Router (라우팅 전용)
 │   layout.tsx  page.tsx  stocks/[symbol]/page.tsx
 │   api/search/  api/stocks/[symbol]/{quote,profile,metrics,series}/
-pages/                        ← 빈 폴더 + README.md (§2 — 삭제 금지)
+pages/                        ← 빈 폴더 + README.md (삭제 금지)
 src/
 ├── app/                      ← FSD app 레이어 (세그먼트만)
 │   ├── layouts/              RootLayout + metadata
@@ -125,5 +125,5 @@ import { StockCard } from "@/pages/stock-detail/ui/StockCard";
 
 ## 8. 테스트 배치
 
-대상 디렉토리 내 `__tests__/[파일명].test.ts(x)` (`testing.md` 참조).
+대상 디렉토리 내 `__tests__/[파일명].test.ts(x)`.
 예: `src/pages/stock-detail/lib/valuation.ts` → `src/pages/stock-detail/lib/__tests__/valuation.test.ts`

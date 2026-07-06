@@ -10,4 +10,3 @@ paths: ["src/**/*.tsx"]
 - 복합 컴포넌트: `Object.assign` 패턴 — 서브 함수/타입에 부모 prefix 필수
 - `"use client"`: hooks/browser API/이벤트 핸들러 직접 사용 시에만
 - 무거운 클라이언트 컴포넌트는 `next/dynamic`으로 지연 로딩
-- 컴포넌트 배치(레이어·슬라이스 선택) 기준: `.claude/rules/project-structure.md` 참조

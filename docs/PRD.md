@@ -46,7 +46,7 @@
 
 - **스택**: Next.js (App Router) + TypeScript strict, TanStack Query v5, Tailwind CSS 4,
   Vitest + MSW, pnpm 11 / Node 24, Vercel 배포
-- **아키텍처**: FSD v2.1 미니멀(`app`·`pages`·`shared`) — 규칙은 `.claude/rules/project-structure.md`
+- **아키텍처**: FSD v2.1 미니멀(`app`·`pages`·`shared`)
 - **데이터 원칙**: 외부 API는 Route Handler로 프록시(키 은닉 + 서버 캐시), 시세·지표는 DB에
   저장하지 않음. DB(M2+, Neon + Drizzle)에는 사용자가 만든 데이터만
 - **해석 룰**: 순수 함수(규칙 기반) — 이후 LLM 해석으로 교체 가능한 인터페이스
