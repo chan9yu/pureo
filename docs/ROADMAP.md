@@ -16,7 +16,7 @@
 - [x] M1-05 시장 데이터 provider 계층 (MSW 테스트)
 - [x] M1-06 Route Handler 5개 + 통합 테스트
 - [x] M1-07 TanStack Query 기반 설정 (queryClient·Provider·HTTP 유틸)
-- [ ] M1-08 검색 화면 (디바운스 자동완성)
+- [x] M1-08 검색 화면 (디바운스 자동완성)
 - [ ] M1-09 종목 카드 페이지 (SSR prefetch + 4개 섹션 + 부분 에러 UI)
 - [ ] M1-10 README + Vercel 배포
 
