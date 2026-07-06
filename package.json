@@ -1,0 +1,21 @@
+{
+	"name": "pureo",
+	"version": "1.0.0",
+	"description": "어려운 주식 숫자를 쉬운 말로 풀어 읽어주는 종목 카드 앱",
+	"private": true,
+	"engines": {
+		"node": "24.x",
+		"pnpm": "11.x"
+	},
+	"packageManager": "pnpm@11.10.0",
+	"license": "MIT",
+	"scripts": {
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"prepare": "lefthook install"
+	},
+	"devDependencies": {
+		"lefthook": "^2.1.9",
+		"prettier": "^3.9.4"
+	}
+}
