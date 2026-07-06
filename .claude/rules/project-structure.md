@@ -87,6 +87,16 @@ src/
 예: 2차 관심종목 대시보드가 quote 쿼리·해석 룰을 재사용하게 되면 → `entities/stock`(api·lib) 추출.
 슬라이스 추가·레이어 신설은 `autonomy.md`의 "아키텍처 변경" — 사용자 승인 필요.
 
+**정적 자산 배치 — 누가 소비하는가로 판별**:
+
+| 소비자                             | 위치              | 예시                                             |
+| ---------------------------------- | ----------------- | ------------------------------------------------ |
+| **빌드**가 소비 (import·next/font) | `src/` 코로케이션 | `src/app/fonts/*.woff2`, next/image 정적 import  |
+| **URL**이 소비 (link·meta·크롤러)  | `public/`         | `public/favicons/*`, og 이미지, 도메인 인증 파일 |
+
+빌드 소비 파일을 `public/`에 두면 해시 없는 사본이 이중 배포된다. robots·sitemap·manifest는
+정적 파일 대신 App Router 컨벤션 파일(`app/robots.ts` 등) 우선.
+
 ## 5. 세그먼트 명명 — 목적(why), 기술 역할(what) 금지
 
 | Segment | 용도                                      |

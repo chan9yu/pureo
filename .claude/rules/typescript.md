@@ -21,3 +21,9 @@ paths: ["src/**/*.ts", "src/**/*.tsx"]
   - **배럴은 re-export만 허용**: `export { X } from "./X"` / `export type { T } from "./T"` 형태만. 타입·상수·함수 직접 정의 금지
   - 배럴에 `"use client"` 금지 — 서버/클라이언트 혼재 + 클라이언트 소비자 등장 시 split barrel
 - 레이어 간 의존성은 단방향(app → pages → shared), 같은 레이어의 다른 슬라이스 import 금지
+
+## Ambient 선언 (\*.d.ts)
+
+- ambient 선언(`env.d.ts` 등)은 레이어 소유가 아닌 컴파일러 전역 설정 — `src/` 밖 **루트**에 배치
+- d.ts가 **2개 이상**이 되면 루트 `types/` 폴더로 묶는다 (단, `next-env.d.ts`는 Next.js가 루트에 재생성하므로 이동 불가)
+- d.ts에 import/export 추가 금지 — 모듈로 바뀌어 전역 선언이 조용히 무효화된다

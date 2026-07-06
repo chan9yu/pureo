@@ -28,3 +28,14 @@ paths: ["src/**/*.css", "src/**/*.tsx", "app/**/*.tsx"]
 
 - 전역 스타일과 `@theme` 토큰은 `globals.css` 한 곳에서 관리 (FSD `app` 레이어 소유)
 - 폰트는 `next/font`로 로드
+
+## CSS 파일 분리 트리거
+
+**`globals.css` 단일 파일이 기본.** reset·토큰·타이포그래피 등 전통적 역할별 파일은
+Tailwind 4가 흡수했다 (Preflight·`@theme`·유틸리티). 미리 쪼개지 않는다.
+
+분리는 신호가 생긴 시점에만:
+
+- `@theme` 시맨틱 토큰이 비대해지면 (색상 팔레트·컨테이너·간격 수십 개) → `tokens.css`
+- `@keyframes`·커스텀 variant 블록이 생기면 → `animations.css` 등
+- 분리 시 CSS 엔트리에서 `@import "./tokens.css"` 조합 — 나중에 쪼개는 비용이 0이므로 선분리 실익 없음
