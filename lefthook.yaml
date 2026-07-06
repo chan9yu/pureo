@@ -17,6 +17,9 @@ pre-commit:
     - name: type-check
       glob: "*.{ts,tsx,mts}"
       run: pnpm type:check
+    - name: fsd-structure
+      glob: "src/**"
+      run: pnpm lint:fsd
 
 prepare-commit-msg:
   commands:
