@@ -14,7 +14,7 @@
 - [x] M1-03 도메인 타입 + PER/PBR 해석 룰 (TDD)
 - [x] M1-04 가격 흐름 해석 + 회사 소개 문장 + 용어 사전 (TDD)
 - [x] M1-05 시장 데이터 provider 계층 (MSW 테스트)
-- [ ] M1-06 Route Handler 5개 + 통합 테스트
+- [x] M1-06 Route Handler 5개 + 통합 테스트
 - [ ] M1-07 TanStack Query 기반 설정 (queryClient·Provider·HTTP 유틸)
 - [ ] M1-08 검색 화면 (디바운스 자동완성)
 - [ ] M1-09 종목 카드 페이지 (SSR prefetch + 4개 섹션 + 부분 에러 UI)
