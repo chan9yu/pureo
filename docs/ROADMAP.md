@@ -9,7 +9,7 @@
 **목표**: 로그인 없이, 미국 종목을 검색하면 해석 카드를 보여주는 앱을 배포한다.
 **학습 포인트**: `useQuery`, SSR prefetch(`HydrationBoundary`), 데이터 성격별 캐싱 전략
 
-- [ ] M1-01 Next.js 수동 셋업 + FSD 골격 + Vitest
+- [x] M1-01 Next.js 수동 셋업 + FSD 골격 + Vitest
 - [ ] M1-02 외부 API 스파이크 (Finnhub·Twelve Data 응답 필드 검증) — ⚠️ API 키 발급 필요
 - [ ] M1-03 도메인 타입 + PER/PBR 해석 룰 (TDD)
 - [ ] M1-04 가격 흐름 해석 + 회사 소개 문장 + 용어 사전 (TDD)
