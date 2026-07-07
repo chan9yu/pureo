@@ -1,5 +1,6 @@
 import "server-only";
 
+import { UnsupportedSymbolError } from "./errors";
 import type { CompanyProfile, StockMetrics, StockQuote, StockSearchResult } from "./types";
 
 const BASE = "https://finnhub.io/api/v1";
@@ -39,14 +40,14 @@ export async function searchUs(query: string): Promise<StockSearchResult[]> {
 export async function getQuoteUs(symbol: string): Promise<StockQuote> {
 	const q = await get<{ c: number; d: number | null; dp: number | null; pc: number }>("/quote", { symbol }, 60);
 	if (q.c === 0 && q.pc === 0) {
-		throw new Error(`지원하지 않는 종목: ${symbol}`);
+		throw new UnsupportedSymbolError(symbol);
 	}
 
 	return {
 		symbol,
 		price: q.c,
-		change: q.d ?? 0,
-		changePercent: q.dp ?? 0,
+		change: q.d,
+		changePercent: q.dp,
 		currency: "USD"
 	};
 }
@@ -60,7 +61,7 @@ export async function getProfileUs(symbol: string): Promise<CompanyProfile> {
 		logo?: string;
 	}>("/stock/profile2", { symbol }, 60 * 60 * 24);
 	if (!p.name) {
-		throw new Error(`지원하지 않는 종목: ${symbol}`);
+		throw new UnsupportedSymbolError(symbol);
 	}
 
 	return {

@@ -1,3 +1,4 @@
+export { UnsupportedSymbolError } from "./errors";
 export type {
 	CompanyProfile,
 	Market,

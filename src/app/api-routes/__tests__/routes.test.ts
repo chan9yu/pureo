@@ -55,4 +55,13 @@ describe("GET /api/stocks/[symbol]/quote", () => {
 		expect(res.status).toBe(502);
 		expect((await res.json()).error.message).toContain("불러오지 못했어요");
 	});
+
+	it("지원하지 않는 종목이면 404 — 재시도 대상이 아닌 영구 실패로 분류", async () => {
+		server.use(
+			http.get("https://finnhub.io/api/v1/quote", () => HttpResponse.json({ c: 0, d: null, dp: null, pc: 0 }))
+		);
+		const res = await getStockQuote(new Request("http://localhost/api/stocks/ZZZZ/quote"), ctx("ZZZZ"));
+		expect(res.status).toBe(404);
+		expect((await res.json()).error.message).toContain("찾을 수 없");
+	});
 });

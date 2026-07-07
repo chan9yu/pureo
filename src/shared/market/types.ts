@@ -9,10 +9,10 @@ export interface StockSearchResult {
 export interface StockQuote {
 	symbol: string;
 	price: number;
-	/** 전일 대비 */
-	change: number;
-	/** 전일 대비 % */
-	changePercent: number;
+	/** 전일 대비 — 장 마감 등으로 데이터가 없으면 null */
+	change: number | null;
+	/** 전일 대비 % — 장 마감 등으로 데이터가 없으면 null */
+	changePercent: number | null;
 	currency: "USD" | "KRW";
 }
 
@@ -43,5 +43,5 @@ export interface MarketDataProvider {
 	getQuote(symbol: string): Promise<StockQuote>;
 	getProfile(symbol: string): Promise<CompanyProfile>;
 	getMetrics(symbol: string): Promise<StockMetrics>;
-	getDailySeries(symbol: string, days: number): Promise<PricePoint[]>;
+	getDailySeries(symbol: string, days: 30 | 365): Promise<PricePoint[]>;
 }

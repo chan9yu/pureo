@@ -1,3 +1,8 @@
+const PER_CHEAP_MAX = 10;
+const PER_FAIR_MAX = 25;
+const PBR_CHEAP_MAX = 1;
+const PBR_FAIR_MAX = 3;
+
 export type ValuationLevel = "low" | "mid" | "high";
 
 export interface ValuationInterpretation {
@@ -15,14 +20,14 @@ export function interpretPer(per: number | null): ValuationInterpretation {
 
 	const x = per.toFixed(1);
 
-	if (per < 10) {
+	if (per < PER_CHEAP_MAX) {
 		return {
 			level: "low",
 			sentence: `지금 주가는 1년 이익의 ${x}배예요. 이익에 비해 저렴한 편이에요.`
 		};
 	}
 
-	if (per <= 25) {
+	if (per <= PER_FAIR_MAX) {
 		return {
 			level: "mid",
 			sentence: `지금 주가는 1년 이익의 ${x}배예요. 미국 시장에서 보통 수준이에요.`
@@ -45,14 +50,14 @@ export function interpretPbr(pbr: number | null): ValuationInterpretation {
 
 	const x = pbr.toFixed(1);
 
-	if (pbr < 1) {
+	if (pbr < PBR_CHEAP_MAX) {
 		return {
 			level: "low",
 			sentence: `주가가 회사 순자산의 ${x}배예요. 장부상 재산보다도 싸게 거래되고 있어요.`
 		};
 	}
 
-	if (pbr <= 3) {
+	if (pbr <= PBR_FAIR_MAX) {
 		return {
 			level: "mid",
 			sentence: `주가가 회사 순자산의 ${x}배예요. 흔히 볼 수 있는 수준이에요.`

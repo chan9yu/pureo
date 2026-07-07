@@ -1,3 +1,5 @@
+import "server-only";
+
 import { getMetricsUs, getProfileUs, getQuoteUs, searchUs } from "./finnhub";
 import { getDailySeriesUs } from "./twelvedata";
 import type { MarketDataProvider } from "./types";

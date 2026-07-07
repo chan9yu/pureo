@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 import { afterAll, afterEach, beforeAll, describe, expect, it, vi } from "vitest";
 
+import { UnsupportedSymbolError } from "../errors";
 import { getMetricsUs, getProfileUs, getQuoteUs, searchUs } from "../finnhub";
 
 vi.mock("server-only", () => ({}));
@@ -31,11 +32,20 @@ describe("getQuoteUs", () => {
 		});
 	});
 
-	it("존재하지 않는 종목(c=0, pc=0)이면 throw", async () => {
+	it("존재하지 않는 종목(c=0, pc=0)이면 UnsupportedSymbolError를 던진다", async () => {
 		server.use(
 			http.get("https://finnhub.io/api/v1/quote", () => HttpResponse.json({ c: 0, d: null, dp: null, pc: 0 }))
 		);
-		await expect(getQuoteUs("NOPE")).rejects.toThrow();
+		await expect(getQuoteUs("NOPE")).rejects.toBeInstanceOf(UnsupportedSymbolError);
+	});
+
+	it("장 마감 등으로 d/dp가 null이면 null을 그대로 전달한다", async () => {
+		server.use(
+			http.get("https://finnhub.io/api/v1/quote", () => HttpResponse.json({ c: 210.5, d: null, dp: null, pc: 210.5 }))
+		);
+		const quote = await getQuoteUs("AAPL");
+		expect(quote.change).toBeNull();
+		expect(quote.changePercent).toBeNull();
 	});
 });
 
@@ -74,9 +84,9 @@ describe("getProfileUs", () => {
 		expect(p.industry).toBe("Technology");
 	});
 
-	it("빈 응답(미지원 종목)이면 throw", async () => {
+	it("빈 응답(미지원 종목)이면 UnsupportedSymbolError를 던진다", async () => {
 		server.use(http.get("https://finnhub.io/api/v1/stock/profile2", () => HttpResponse.json({})));
-		await expect(getProfileUs("NOPE")).rejects.toThrow();
+		await expect(getProfileUs("NOPE")).rejects.toBeInstanceOf(UnsupportedSymbolError);
 	});
 });
 

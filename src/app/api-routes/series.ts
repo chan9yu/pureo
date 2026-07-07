@@ -1,5 +1,7 @@
 import { usProvider } from "@/shared/market";
 
+import { errorResponse } from "./errorResponse";
+
 type Ctx = { params: Promise<{ symbol: string }> };
 
 export async function getStockSeries(request: Request, { params }: Ctx) {
@@ -8,10 +10,7 @@ export async function getStockSeries(request: Request, { params }: Ctx) {
 
 	try {
 		return Response.json(await usProvider.getDailySeries(symbol.toUpperCase(), days));
-	} catch {
-		return Response.json(
-			{ error: { message: "가격 흐름을 불러오지 못했어요. 잠시 후 다시 시도해주세요." } },
-			{ status: 502 }
-		);
+	} catch (error) {
+		return errorResponse(error, "가격 흐름을 불러오지 못했어요. 잠시 후 다시 시도해주세요.");
 	}
 }

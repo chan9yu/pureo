@@ -13,7 +13,7 @@ function apiKey() {
 	return key;
 }
 
-export async function getDailySeriesUs(symbol: string, days: number): Promise<PricePoint[]> {
+export async function getDailySeriesUs(symbol: string, days: 30 | 365): Promise<PricePoint[]> {
 	const qs = new URLSearchParams({ symbol, interval: "1day", outputsize: String(days), apikey: apiKey() });
 	const res = await fetch(`${BASE}/time_series?${qs}`, { next: { revalidate: 60 * 60 } });
 	if (!res.ok) {

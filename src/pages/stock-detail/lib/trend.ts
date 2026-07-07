@@ -1,5 +1,8 @@
 import type { PricePoint } from "@/shared/market";
 
+const SURGE_THRESHOLD_PERCENT = 10;
+const DRIFT_THRESHOLD_PERCENT = 3;
+
 export interface TrendInterpretation {
 	direction: "up" | "down" | "flat" | "unknown";
 	changePercent: number | null;
@@ -21,7 +24,7 @@ export function interpretTrend(series: PricePoint[], periodLabel: string): Trend
 	const changePercent = ((last.close - first.close) / first.close) * 100;
 	const pct = Math.abs(changePercent).toFixed(1);
 
-	if (changePercent >= 10) {
+	if (changePercent >= SURGE_THRESHOLD_PERCENT) {
 		return {
 			direction: "up",
 			changePercent,
@@ -29,7 +32,7 @@ export function interpretTrend(series: PricePoint[], periodLabel: string): Trend
 		};
 	}
 
-	if (changePercent >= 3) {
+	if (changePercent >= DRIFT_THRESHOLD_PERCENT) {
 		return {
 			direction: "up",
 			changePercent,
@@ -37,7 +40,7 @@ export function interpretTrend(series: PricePoint[], periodLabel: string): Trend
 		};
 	}
 
-	if (changePercent > -3) {
+	if (changePercent > -DRIFT_THRESHOLD_PERCENT) {
 		return {
 			direction: "flat",
 			changePercent,
@@ -45,7 +48,7 @@ export function interpretTrend(series: PricePoint[], periodLabel: string): Trend
 		};
 	}
 
-	if (changePercent > -10) {
+	if (changePercent > -SURGE_THRESHOLD_PERCENT) {
 		return {
 			direction: "down",
 			changePercent,

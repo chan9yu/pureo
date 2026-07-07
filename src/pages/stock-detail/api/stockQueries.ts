@@ -9,7 +9,7 @@ export const STOCK_QUERIES = {
 		queryOptions({
 			queryKey: [...STOCK_QUERIES.detail(symbol), "quote"] as const,
 			queryFn: () => fetchJson<StockQuote>(`/api/stocks/${symbol}/quote`),
-			staleTime: 1000 * 30,
+			staleTime: 1000 * 60,
 			refetchInterval: 1000 * 60 // 시세는 1분 폴링
 		}),
 	profile: (symbol: string) =>
