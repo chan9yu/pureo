@@ -1,4 +1,5 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import type { Metadata } from "next";
 
 import { getQueryClient } from "@/shared/api";
 import { usProvider } from "@/shared/market";
@@ -9,6 +10,11 @@ import { StockCard } from "./StockCard";
 type StockDetailPageProps = {
 	params: Promise<{ symbol: string }>;
 };
+
+export async function generateMetadata({ params }: StockDetailPageProps): Promise<Metadata> {
+	const { symbol } = await params;
+	return { title: `${symbol.toUpperCase()} — pureo` };
+}
 
 export async function StockDetailPage({ params }: StockDetailPageProps) {
 	const { symbol: raw } = await params;

@@ -1,1 +1,1 @@
-export { StockDetailPage as default } from "@/pages/stock-detail";
+export { StockDetailPage as default, generateMetadata } from "@/pages/stock-detail";
