@@ -15,7 +15,7 @@ export function Gauge({ level }: GaugeProps) {
 					style={{ left: POSITION[level] }}
 				/>
 			</div>
-			<div className="text-t7 mt-1.5 flex justify-between text-grey-500">
+			<div className="text-t7 mt-1.5 flex justify-between text-grey-600">
 				<span>저렴한 편</span>
 				<span>비싼 편</span>
 			</div>

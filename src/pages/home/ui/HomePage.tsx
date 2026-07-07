@@ -32,8 +32,8 @@ export function HomePage() {
 
 				<section className="rounded-3xl bg-grey-50 p-6 lg:col-span-2 h-full">
 					<h2 className="text-t6 font-semibold text-grey-600">이렇게 읽어드려요</h2>
-					<p className="text-t7 mt-4 text-grey-500">증권 앱의 말</p>
-					<p className="text-t6 mt-1 text-grey-500 tabular-nums">PER 36.9x · PBR 34.0x · Mkt Cap $4.53T</p>
+					<p className="text-t7 mt-4 text-grey-600">증권 앱의 말</p>
+					<p className="text-t6 mt-1 text-grey-600 tabular-nums">PER 36.9x · PBR 34.0x · Mkt Cap $4.53T</p>
 					<p className="text-t7 mt-4 font-semibold text-primary">pureo의 말</p>
 					<p className="text-t5 mt-1 font-medium text-grey-800">
 						“지금 주가는 <span className="text-primary">1년 이익의 36.9배</span>예요. 미래 성장 기대가 많이 반영된, 비싼
@@ -53,7 +53,7 @@ export function HomePage() {
 							>
 								<span className="flex items-baseline gap-2">
 									<span className="text-t5 font-semibold">{stock.name}</span>
-									<span className="text-t7 text-grey-500 tabular-nums">{stock.symbol}</span>
+									<span className="text-t7 text-grey-600 tabular-nums">{stock.symbol}</span>
 								</span>
 								<ChevronRight className="size-5 text-grey-400" aria-hidden />
 							</Link>

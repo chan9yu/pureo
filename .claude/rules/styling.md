@@ -29,6 +29,12 @@ paths: ["src/**/*.css", "src/**/*.tsx", "app/**/*.tsx"]
 - 전역 스타일과 `@theme` 토큰은 `globals.css` 한 곳에서 관리 (FSD `app` 레이어 소유)
 - 폰트는 `next/font`로 로드
 
+## 텍스트 대비 티어 (WCAG AA)
+
+- **텍스트(placeholder 포함)는 `grey-600` 이상만** 사용한다 — 흰 배경 기준 grey-600(4.6:1)부터 AA 통과
+- `grey-400`·`grey-500`은 `aria-hidden` 장식 아이콘·비활성 표시 전용 — 읽어야 하는 텍스트에 금지
+- 브랜드 텍스트는 `--color-primary`(4.5:1 이상으로 보정된 값)만 사용, 더 밝은 변형은 배경·보더 전용
+
 ## CSS 파일 분리 트리거
 
 **`globals.css` 단일 파일이 기본.** reset·토큰·타이포그래피 등 전통적 역할별 파일은

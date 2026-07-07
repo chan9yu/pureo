@@ -41,13 +41,13 @@ export function RootLayout({ children }: PropsWithChildren) {
 							>
 								pureo
 							</Link>
-							<p className="text-t7 hidden text-grey-500 sm:block">어려운 주식, 쉬운 말로</p>
+							<p className="text-t7 hidden text-grey-600 sm:block">어려운 주식, 쉬운 말로</p>
 						</div>
 					</header>
 					{children}
 					<footer className="mt-auto border-t border-grey-100">
 						<div className="mx-auto w-full max-w-6xl px-5 py-8 lg:px-8">
-							<p className="text-t7 text-center leading-relaxed text-grey-400">
+							<p className="text-t7 text-center leading-relaxed text-grey-600">
 								pureo — 어려운 주식 숫자를 쉬운 말로. 모든 해석은 투자 권유가 아닌 참고용이에요.
 							</p>
 						</div>

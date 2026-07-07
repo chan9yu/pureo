@@ -15,8 +15,20 @@ export function SearchBar() {
 	const { data: results, isFetching, isError } = useQuery(SEARCH_QUERIES.search(debounced));
 	const showEmpty = results !== undefined && results.length === 0 && debounced.trim().length >= 2 && !isFetching;
 
+	let statusMessage = "";
+	if (isError) {
+		statusMessage = "검색에 실패했어요";
+	} else if (showEmpty) {
+		statusMessage = "검색 결과가 없어요";
+	} else if (results && results.length > 0) {
+		statusMessage = `${results.length}개 종목이 검색됐어요`;
+	}
+
 	return (
 		<div>
+			<p role="status" className="sr-only">
+				{statusMessage}
+			</p>
 			<div className="relative">
 				<Search
 					className="pointer-events-none absolute top-1/2 left-4 size-5 -translate-y-1/2 text-grey-500"
@@ -27,7 +39,7 @@ export function SearchBar() {
 					onChange={(e) => setInput(e.target.value)}
 					placeholder="티커나 영문 이름으로 검색"
 					aria-label="종목 검색"
-					className="text-t5 h-14 w-full rounded-2xl border-2 border-transparent bg-grey-100 pr-4 pl-12 font-medium transition outline-none placeholder:font-normal placeholder:text-grey-500 focus:border-primary focus:bg-white"
+					className="text-t5 h-14 w-full rounded-2xl border-2 border-transparent bg-grey-100 pr-4 pl-12 font-medium transition outline-none placeholder:font-normal placeholder:text-grey-600 focus:border-primary focus:bg-white"
 					autoFocus
 				/>
 			</div>
@@ -50,7 +62,7 @@ export function SearchBar() {
 								className="flex items-center justify-between gap-3 rounded-2xl px-3 py-3.5 transition hover:bg-grey-50 active:bg-grey-100"
 							>
 								<span className="text-t5 truncate font-semibold">{r.name}</span>
-								<span className="text-t7 shrink-0 font-medium text-grey-500 tabular-nums">{r.symbol}</span>
+								<span className="text-t7 shrink-0 font-medium text-grey-600 tabular-nums">{r.symbol}</span>
 							</Link>
 						</li>
 					))}

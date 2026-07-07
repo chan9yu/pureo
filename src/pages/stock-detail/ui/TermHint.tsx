@@ -2,7 +2,7 @@
 
 import { CircleHelp } from "lucide-react";
 import type { PropsWithChildren } from "react";
-import { useState } from "react";
+import { useId, useState } from "react";
 
 type TermHintProps = PropsWithChildren<{
 	term: string;
@@ -10,6 +10,7 @@ type TermHintProps = PropsWithChildren<{
 
 export function TermHint({ term, children }: TermHintProps) {
 	const [open, setOpen] = useState(false);
+	const panelId = useId();
 
 	return (
 		<span className="block">
@@ -17,12 +18,17 @@ export function TermHint({ term, children }: TermHintProps) {
 				type="button"
 				onClick={() => setOpen((o) => !o)}
 				aria-expanded={open}
+				aria-controls={panelId}
 				className="text-t5 inline-flex items-center gap-1.5 font-bold transition active:opacity-70"
 			>
 				{term}
 				<CircleHelp className="size-4 text-grey-400" aria-hidden />
 			</button>
-			{open && <span className="text-t6 mt-2 block rounded-2xl bg-white p-4 text-grey-600">{children}</span>}
+			{open && (
+				<span id={panelId} className="text-t6 mt-2 block rounded-2xl bg-white p-4 text-grey-600">
+					{children}
+				</span>
+			)}
 		</span>
 	);
 }
