@@ -37,6 +37,40 @@ describe("GET /api/search", () => {
 		const body = await res.json();
 		expect(body.results[0].symbol).toBe("AAPL");
 	});
+
+	it("limit 파라미터로 결과 수를 제한한다", async () => {
+		server.use(
+			http.get("https://finnhub.io/api/v1/search", () =>
+				HttpResponse.json({
+					result: [
+						{ symbol: "AAPL", description: "Apple Inc", type: "Common Stock" },
+						{ symbol: "APLE", description: "Apple Hospitality REIT", type: "Common Stock" },
+						{ symbol: "AAPI", description: "Apple iSports Group", type: "Common Stock" }
+					]
+				})
+			)
+		);
+		const res = await searchStocks(new Request("http://localhost/api/search?q=apple&limit=2"));
+		expect((await res.json()).results).toHaveLength(2);
+	});
+
+	it("limit이 유효하지 않거나 상한을 넘으면 기본 상한을 적용한다", async () => {
+		server.use(
+			http.get("https://finnhub.io/api/v1/search", () =>
+				HttpResponse.json({
+					result: [
+						{ symbol: "AAPL", description: "Apple Inc", type: "Common Stock" },
+						{ symbol: "APLE", description: "Apple Hospitality REIT", type: "Common Stock" }
+					]
+				})
+			)
+		);
+		const invalid = await searchStocks(new Request("http://localhost/api/search?q=apple&limit=abc"));
+		expect((await invalid.json()).results).toHaveLength(2);
+
+		const oversized = await searchStocks(new Request("http://localhost/api/search?q=apple&limit=999"));
+		expect((await oversized.json()).results).toHaveLength(2);
+	});
 });
 
 describe("GET /api/stocks/[symbol]/quote", () => {
